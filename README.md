@@ -42,3 +42,17 @@
 
 ------
 
+### Não podemos ter dois usuários com o mesmo email
+
+#### Tag: v1.1.1
+
+#### Necessidades
+
+- Só pode existir um usuário com o mesmo email.
+
+#### Resultado esperado
+
+- Status 400 informando que não foi possível realizar um cadastro com este email.
+
+------
+

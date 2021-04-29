@@ -1,4 +1,4 @@
-package br.com.zupacademy.guilhermejcs.mercadolivre.cadastraUsuario;
+package br.com.zupacademy.guilhermejcs.mercadolivre.cadastroUsuario;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -22,5 +22,9 @@ public class NovoUsuarioResquest {
 
     public Usuario toUsuario() {
         return new Usuario(email, new SenhaLimpa(senha));
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

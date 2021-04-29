@@ -1,4 +1,4 @@
-package br.com.zupacademy.guilhermejcs.mercadolivre.cadastraUsuario;
+package br.com.zupacademy.guilhermejcs.mercadolivre.cadastroUsuario;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,19 +8,20 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * Representa um senha limpa no sistema
+ *
  * @author Guilherme.Camargos
  */
 public class SenhaLimpa {
 
     private String senha;
 
-    public SenhaLimpa(@NotBlank @Length(min = 6) String senha){
-        Assert.hasLength(senha,"senha nao pode ser em branco");
-        Assert.isTrue(senha.length()>=6,"senha tem que ter no mínimo 6 caracteres");
+    public SenhaLimpa(@NotBlank @Length(min = 6) String senha) {
+        Assert.hasLength(senha, "senha nao pode ser em branco");
+        Assert.isTrue(senha.length() >= 6, "senha tem que ter no mínimo 6 caracteres");
         this.senha = senha;
     }
 
-    public String hash(){
+    public String hash() {
         return new BCryptPasswordEncoder().encode(senha);
     }
 
