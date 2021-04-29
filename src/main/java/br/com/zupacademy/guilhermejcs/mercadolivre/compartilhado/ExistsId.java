@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ExistsId {
 
-	String message() default "{br.com.zupacademy.guilhermejcs.mercadolivre.compartilhado}";
+	String message() default "{br.com.zupacademy.guilhermejcs.mercadolivre.compartilhado.ExistsId}";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default { };
 	String fieldName();
