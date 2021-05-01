@@ -81,9 +81,41 @@ No mercado livre você pode criar hierarquias de categorias livres. Ex: Tecnolog
 
 ### Trabalhando com o usuário logado
 
-#### Tag: 1.2.2
+#### Tag: v1.2.2
 
 Você precisa configurar um mecanismo de autenticação via token, provavelmente com o Spring Security, para permitir o login.
 
 ------
 
+### Usuário logado cadastra novo produto
+
+#### Tag: v2.2.2
+
+#### Explicação
+
+Aqui a gente vai permitir o cadastro de um produto por usuário logado.
+
+#### Necessidades
+
+- Tem um nome
+- Tem um valor
+- Tem quantidade disponível
+- Características(cada produto pode ter um conjunto de características diferente).
+- Cada característica tem um nome e uma descrição associada.
+- Tem uma descrição
+- Pertence a uma categoria
+- Instante de cadastro
+
+#### Restrições
+
+- Nome é obrigatório
+- Valor é obrigatório e maior que zero
+- Quantidade é obrigatório e >= 0
+- O produto possui pelo menos três características
+- Descrição é obrigatória e tem máximo de 1000 caracteres.
+- A categoria é obrigatória
+
+#### Resultado esperado
+
+- Um novo produto criado e status 200 retornado
+- Caso dê erro de validação retorne 400 e o json dos erros
