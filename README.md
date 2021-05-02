@@ -178,3 +178,33 @@ Um usuário logado pode opinar sobre um produto. Claro que o melhor era que isso
 
 ------
 
+### Faça uma pergunta
+
+#### Tag: v.3.3.3
+
+#### Explicação
+
+Um usuário logado pode fazer uma pergunta sobre o produto
+
+#### Necessidades
+
+- A pergunta tem um título
+- Tem instante de criação
+- O usuário que fez a pergunta
+- O produto relacionado a pergunta
+- O vendedor recebe um email com a pergunta nova
+- o email não precisa ser de verdade. Pode ser apenas um print no console do servidor com o corpo.
+
+#### Restrições
+
+- O título é obrigatório
+- O produto é obrigatório
+- O usuário é obrigatório
+
+#### Resultado esperado
+
+- Uma nova pergunta é criada e é retornada. Status 200
+- Em caso de erro de validação, retorne 400 e o json com erros.
+
+------
+
