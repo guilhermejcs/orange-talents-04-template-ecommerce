@@ -119,3 +119,31 @@ Aqui a gente vai permitir o cadastro de um produto por usuário logado.
 
 - Um novo produto criado e status 200 retornado
 - Caso dê erro de validação retorne 400 e o json dos erros
+
+------
+
+### Usuário logado adiciona imagem no seu produto
+
+#### Explicação
+
+Com um produto cadastrado, um usuário logado pode adicionar imagens ao seu produto. Não precisa salvar a imagem em algum cloud ou no próprio sistema de arquivos. Cada arquivo de imagem pode virar um link ficticio que pode ser adicionado ao produto. 
+
+#### Tag: v.2.2.3
+
+#### Necessidades
+
+- Adicionar uma ou mais imagens a um determinado produto do próprio usuário
+
+#### Restrições
+
+- Tem uma ou mais fotos
+- Só pode adicionar fotos ao produto que pertence ao próprio usuário
+
+### Resultado esperado
+
+- Imagens adicionadas e 200 como retorno
+- Caso dê erro de validação retorne 400 e o json dos erros
+- Caso tente adicionar imagens a um produto que não é seu retorne 403.
+
+------
+

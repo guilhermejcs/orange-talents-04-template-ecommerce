@@ -26,6 +26,8 @@ public class Produto {
     private Long id;
     private @NotBlank String nome;
     private @Positive int quantidade;
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<ImagemProduto> imagens = new HashSet<>();
 
     @Override
     public String toString() {
@@ -38,6 +40,7 @@ public class Produto {
                 ", categoria=" + categoria +
                 ", dono=" + dono +
                 ", caracteristicas=" + caracteristicas +
+                ", imagens=" + imagens +
                 '}';
     }
 
@@ -49,6 +52,10 @@ public class Produto {
     private @NotNull @Valid Usuario dono;
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+
+    @Deprecated
+    public Produto() {
+    }
 
     public Produto(@NotBlank String nome,
                    @Positive int quantidade,
@@ -80,5 +87,16 @@ public class Produto {
     @Override
     public int hashCode() {
         return Objects.hash(nome);
+    }
+
+    public void associaImagens(Set<String> links) {
+        Set<ImagemProduto> imagens =  links.stream().map(link -> new ImagemProduto(this,link))
+                .collect(Collectors.toSet());
+
+        this.imagens.addAll(imagens);
+    }
+
+    public boolean pertenceAoUsuario(Usuario possivelDono) {
+        return this.dono.equals(possivelDono);
     }
 }
