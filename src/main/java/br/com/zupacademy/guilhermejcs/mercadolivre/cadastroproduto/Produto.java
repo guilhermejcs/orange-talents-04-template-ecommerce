@@ -4,6 +4,7 @@ import br.com.zupacademy.guilhermejcs.mercadolivre.adicionaOpiniao.Opiniao;
 import br.com.zupacademy.guilhermejcs.mercadolivre.adicionaPergunta.Pergunta;
 import br.com.zupacademy.guilhermejcs.mercadolivre.cadastroUsuario.Usuario;
 import br.com.zupacademy.guilhermejcs.mercadolivre.cadastrocategorias.Categoria;
+import org.hibernate.sql.OracleJoinFragment;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
@@ -156,4 +157,11 @@ public class Produto {
         return this.perguntas.stream().map(funcaoMapeadora)
                 .collect(Collectors.toCollection(TreeSet :: new));
     }
+
+    public <T> Set<T> mapeiaOpinioes(
+            Function<Opiniao, T> funcaoMapeadora) {
+        return this.opinioes.stream().map(funcaoMapeadora)
+                .collect(Collectors.toSet());
+    }
+
 }
