@@ -4,7 +4,7 @@ import br.com.zupacademy.guilhermejcs.mercadolivre.adicionaOpiniao.Opiniao;
 import br.com.zupacademy.guilhermejcs.mercadolivre.adicionaPergunta.Pergunta;
 import br.com.zupacademy.guilhermejcs.mercadolivre.cadastroUsuario.Usuario;
 import br.com.zupacademy.guilhermejcs.mercadolivre.cadastrocategorias.Categoria;
-import org.hibernate.sql.OracleJoinFragment;
+import br.com.zupacademy.guilhermejcs.mercadolivre.detalheProduto.Opinioes;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
@@ -152,16 +152,14 @@ public class Produto {
         return this.imagens.stream().map(funcaoMapeadora)
                 .collect(Collectors.toSet());
     }
+
     public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(
             Function<Pergunta, T> funcaoMapeadora) {
         return this.perguntas.stream().map(funcaoMapeadora)
-                .collect(Collectors.toCollection(TreeSet :: new));
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
-    public <T> Set<T> mapeiaOpinioes(
-            Function<Opiniao, T> funcaoMapeadora) {
-        return this.opinioes.stream().map(funcaoMapeadora)
-                .collect(Collectors.toSet());
+    public Opinioes getOpinioes() {
+        return new Opinioes(this.opinioes);
     }
-
 }

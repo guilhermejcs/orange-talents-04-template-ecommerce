@@ -4,11 +4,12 @@ import br.com.zupacademy.guilhermejcs.mercadolivre.cadastroproduto.Produto;
 
 import java.math.BigDecimal;
 import java.util.Map;
-import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.stream.IntStream;
 
+/**
+ * Isola as operações sobre um conjunto de opinioes
+ */
 public class DetalheProdutoView {
     private String descricao;
     private String nome;
@@ -18,6 +19,7 @@ public class DetalheProdutoView {
     private SortedSet<String> perguntas;
     private Set<Object> opinioes;
     private double mediaNotas;
+    private int total;
 
     public DetalheProdutoView(Produto produto) {
         this.descricao = produto.getDescricao();
@@ -27,16 +29,15 @@ public class DetalheProdutoView {
                 .mapeiaCaracteristicas(DetalheProdutoCaracteristica::new);
         this.linksImagens = produto.mapeiaImagens(imagem -> imagem.getLink());
         this.perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
-        this.opinioes = produto.mapeiaOpinioes(opiniao ->
-                Map.of("titulo",opiniao.getTitulo(),"descricao",opiniao.getDescricao()));
 
-        Set<Integer> notas = produto.mapeiaOpinioes(opiniao -> opiniao.getNota());
-        OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();
-        this.mediaNotas = possivelMedia.orElseGet(() -> 0.0);
-    }
+        Opinioes opinioes = produto.getOpinioes();
 
-    public Set<Object> getOpinioes() {
-        return opinioes;
+        this.opinioes = opinioes.mapeiaOpinioes(opiniao ->
+                Map.of("titulo", opiniao.getTitulo(),
+                        "descricao", opiniao.getDescricao()));
+
+        this.mediaNotas = opinioes.media();
+        this.total = opinioes.total();
     }
 
     public SortedSet<String> getPerguntas() {
@@ -65,5 +66,9 @@ public class DetalheProdutoView {
 
     public double getMediaNotas() {
         return mediaNotas;
+    }
+
+    public int getTotal() {
+        return total;
     }
 }
