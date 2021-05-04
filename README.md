@@ -271,4 +271,39 @@ Então essa é a parte 1 do processo de finalização de compra. Onde apenas ger
   - Retorne o endereço da seguinte maneira: paypal.com?buyerId={idGeradoDaCompra}&redirectUrl={urlRetornoAppPosPagamento}
 - Caso a pessoa escolha o pagseguro o seu endpoint deve gerar o seguinte redirect(302):
   - Retorne o endereço da seguinte maneira: pagseguro.com?returnId={idGeradoDaCompra}&redirectUrl={urlRetornoAppPosPagamento}
-- Caso aconteça alguma restrição retorne um status 400 informando os problemas. 
+- Caso aconteça alguma restrição retorne um status 400 informando os problemas.
+
+------
+
+### Realmente finaliza a compra - parte 2
+
+#### Tag: v.4.4.4
+
+#### Necessidades
+
+O meio de pagamento(pagseguro ou paypal) redireciona para a aplicação passando no mínimo 3 argumentos:
+
+- id da compra no sistema de origem
+- id do pagamento na plataforma escolhida
+- status da compra. Para o status vamos assumir os dois básicos(Sucesso, Falha). Os gateways de pagamento informam isso de maneira distinta.
+- Paypal retorna o número 1 para sucesso e o número 0 para erro.
+- Pagseguro retorna a string SUCESSO ou ERRO.
+
+Temos alguns passos aqui.
+
+- Precisamos registrar a tentativa de pagamento com todas as informações envolvidas. Além das citadas, é necessário registrar o exato instante do processamento do retorno do pagamento.
+- Caso a compra tenha sido concluída com sucesso:
+  - precisamos nos comunicar com o setor de nota fiscal que é um outro sistema. Ele precisa receber apenas receber o id da compra e o id do usuário que fez a compra.
+  - Neste momento você não precisa criar outro projeto para simular isso. Crie um controller com um endpoint fake e faça uma chamada local mesmo.
+  - também precisamos nos comunicar com o sistema de ranking dos vendedores. Esse sistema recebe o id da compra e o id do vendedor.
+  - Neste momento você não precisa criar outro projeto para simular isso. Faça uma chamada local mesmo.
+- para fechar precisamos mandar um email para quem comprou avisando da conclusão com sucesso. Pode colocar o máximo de informações da compra que puder.
+- Caso a compra não tenha sido concluída com sucesso, precisamos:
+  - enviar um email para o usuário informando que o pagamento falhou com o link para que a pessoa possa tentar de novo.
+
+#### Restrição
+
+- id de compra, id de transação e status são obrigatórios para todas urls de retorno de dentro da aplicação.
+- O id de uma transação que vem de alguma plataforma de pagamento só pode ser processado com sucesso uma vez.
+- Uma transação que foi concluída com sucesso não pode ter seu status alterado para qualquer coisa outra coisa.
+- Uma compra não pode ter mais de duas transações concluídas com sucesso associada a ela.
