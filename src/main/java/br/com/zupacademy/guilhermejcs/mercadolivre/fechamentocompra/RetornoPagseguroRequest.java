@@ -11,17 +11,16 @@ public class RetornoPagseguroRequest implements RetornoGatewayPagamento {
     private StatusRetornoPagseguro status;
 
     public RetornoPagseguroRequest(@NotBlank String idTransacao,
-                                   @NotNull StatusRetornoPagseguro status) {
+                                   StatusRetornoPagseguro status) {
+        super();
         this.idTransacao = idTransacao;
         this.status = status;
     }
 
     @Override
     public String toString() {
-        return "RetornoPagseguroRequest{" +
-                "idTransacao='" + idTransacao + '\'' +
-                ", status=" + status +
-                '}';
+        return "RetornoPagseguroRequest [idTransacao=" + idTransacao
+                + ", status=" + status + "]";
     }
 
     public Transacao toTransacao(Compra compra) {

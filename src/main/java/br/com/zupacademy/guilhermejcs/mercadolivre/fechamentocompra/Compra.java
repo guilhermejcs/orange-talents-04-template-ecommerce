@@ -85,7 +85,11 @@ public class Compra {
         return !transacaosConcluidasComSucesso().isEmpty();
     }
 
-    public Compra getComprador() {
-        return getComprador();
+    public Usuario getComprador() {
+        return comprador;
+    }
+
+    public Usuario getDonoProduto() {
+        return produtoASerComprado.getDono();
     }
 }
